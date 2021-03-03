@@ -1,28 +1,30 @@
-//dependencies 
+//DEPENDENCIES
 import React, { Component } from "react";
-import Col from "./components/Col";
 import Container from "./components/Container";
-import EmployeeCard from "./components/EmployeeCard";
+import Col from "./components/Col";
 import SearchForm from "./components/SearchForm";
+import EmployeeCard from "./components/EmployeeCard";
 import API from "./utils/API";
-import './App.css';
+import "./App.css";
+
 
 // this section sets the state
 class App extends Component {
-   state = { employees: [], search: "" };
+  state = { employees: [], search: "" };
 
   //get the data for the employees via the API
   componentDidMount() {
     API.search().then((res) => {
+      console.log(res);
       this.setState({
-        employees: res.data.results.map((employee, k) => ({
-          picture: employee.picture.large,
+        employees: res.data.results.map((employee, i) => ({
           firstName: employee.name.first,
           lastName: employee.name.last,
+          picture: employee.picture.large,
           email: employee.email,
           phone: employee.phone,
           city: employee.location.city,
-          key: k,
+          key: i,
         })),
       });
     })
@@ -33,19 +35,21 @@ class App extends Component {
     window.location.reload(false);
   };
 
+
   //this is the function for searching by name
   searchName = (filter) => {
-    let filterEmployees = this.state.employees.filter((employee) => {
-      let lowercase = Object.lowercase(employee).join("").toLowerCase();
-      return lowercase.indexOf(filter.toLowerCase()) !== -1;
+    console.log("Search by name:", filter);
+    const filterEmployees = this.state.employees.filter((employee) => {
+      let values = Object.values(employee).join("").toLocaleLowerCase();
+      return values.indexOf(filter.toLowerCase()) !== -1;
     });
-    this.setState({ employees: filterEmployees});
+    this.setState({ employees: filterEmployees });
   };
 
   //this is an event handler for input changing
   handleInputChange = (event) => {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
   };
 
@@ -55,36 +59,41 @@ class App extends Component {
     this.searchName(this.state.search)
   };
 
-  //this section renders the page and creates the table
+
+  //this section renders the page using the various props to populate information
   render() {
     return (
       <Container>
-        <div className = "row">
-          <Col size = "md-4">
-            <h2>Employee Directory</h2>
-            <SearchForm>
-              value={this.state.search}
-              handleInputChange={this.handleInputChange}
-              handleFormSubmit={this.handleFormSubmit}
-            </SearchForm>
-          </Col>
-        </div>
+          <div className = "row">
+            <Col size = "md-3">
+            </Col>
+            <Col size = "md-6">
+              <h2>Employee Directory</h2>
+              <SearchForm
+              value = {this.state.search}
+              handleInputChange = {this.handleInputChange}
+              handleFormSubmit = {this.handleFormSubmit}
+              />
+            </Col>
+            <Col size = "md-3">
+            </Col>
+          </div>
 
-        <div className = "row">
-          <Col size = "md-12">
-            <table className = "table">
-              <thead>
-                <tr>
-                  <th>Photo</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Email</th>
-                  <th>Phone</th>
-                  <th>City</th>
-                </tr>
-              </thead>
-              {[...this.state.employees].map((item) => (
-                <EmployeeCard>
+          <div className = "row">
+            <Col size = "md-12">
+              <table className = "table">
+                <thead>
+                  <tr>
+                    <th>Photo</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>City</th>
+                  </tr>
+                </thead>
+                {[...this.state.employees].map((item) => (
+                  <EmployeeCard
                   picture = {item.picture}
                   firstName = {item.firstName}
                   lastName = {item.lastName}
@@ -92,12 +101,12 @@ class App extends Component {
                   phone = {item.phone}
                   city = {item.city}
                   key = {item.key}
-                </EmployeeCard>
-              ))}
-            </table>
-          </Col>
-        </div>
-      </Container>
+                  />
+                ))}
+              </table>
+            </Col>
+          </div>   
+    </Container>
     );
   };
 };
