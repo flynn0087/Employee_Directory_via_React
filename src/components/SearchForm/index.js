@@ -1,5 +1,7 @@
+//dependencies needed
 import React from "react";
 
+//this function alllows for searching by employee name
 function SearchForm(props) {
   return (
     <form>
