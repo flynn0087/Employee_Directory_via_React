@@ -29,7 +29,31 @@ class App extends Component {
     .catch((err) => console.log(err));
   };
 
-  
+  refreshPage() {
+    window.location.reload(false);
+  };
+
+  //this is the function for searching by name
+  searchName = (filter) => {
+    let filterEmployees = this.state.employees.filter((employee) => {
+      let lowercase = Object.lowercase(employee).join("").toLowerCase();
+      return lowercase.indexOf(filter.toLowerCase()) !== -1;
+    });
+    this.setState({ employees: filterEmployees});
+  };
+
+  //this is an event handler for input changing
+  handleInputChange = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
+
+  handleFormSubmit = (event) => {
+    event.preventDefault();
+    this.searchName(this.state.search)
+  };
+
 }
 
 export default App;
