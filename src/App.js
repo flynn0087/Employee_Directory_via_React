@@ -49,11 +49,57 @@ class App extends Component {
     });
   };
 
+  //this is an event handler for form submissions
   handleFormSubmit = (event) => {
     event.preventDefault();
     this.searchName(this.state.search)
   };
 
-}
+  //this section renders the page and creates the table
+  render() {
+    return (
+      <Container>
+        <div className = "row">
+          <Col size = "md-4">
+            <h2>Employee Directory</h2>
+            <SearchForm>
+              value={this.state.search}
+              handleInputChange={this.handleInputChange}
+              handleFormSubmit={this.handleFormSubmit}
+            </SearchForm>
+          </Col>
+        </div>
+
+        <div className = "row">
+          <Col size = "md-12">
+            <table className = "table">
+              <thead>
+                <tr>
+                  <th>Photo</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>City</th>
+                </tr>
+              </thead>
+              {[...this.state.employees].map((item) => (
+                <EmployeeCard>
+                  picture = {item.picture}
+                  firstName = {item.firstName}
+                  lastName = {item.lastName}
+                  email = {item.email}
+                  phone = {item.phone}
+                  city = {item.city}
+                  key = {item.key}
+                </EmployeeCard>
+              ))}
+            </table>
+          </Col>
+        </div>
+      </Container>
+    );
+  };
+};
 
 export default App;
