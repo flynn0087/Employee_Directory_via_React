@@ -14,10 +14,12 @@
 This is an example of an employee directory using an API to generate the employees. It is meant to indicate a proper use of React by using a one page system and components to generate the page.
             
 ## Installation:
-Clone the repo, npm i, npm start
+Clone the repo, npm i, npm start.
+Github pages Link to active site: [link to Github Pages!](https://flynn0087.github.io/Employee_Directory_via_React/)
+Here is an example image of the page: ![Image of webpage](./screenshot.PNG)
         
 ## Usage:
-To have a list of employees with information provided. That can be sorted and filtered by name
+To have a list of employees with information provided. That can be sorted and filtered by name.
 
 ## License:
 MIT
