@@ -19,7 +19,7 @@ Github pages Link to active site: [link to Github Pages!](https://flynn0087.gith
 Here is an example image of the page: ![Image of webpage](./screenshot.PNG)
         
 ## Usage:
-To have a list of employees with information provided. That can be sorted and filtered by name.
+To have a list of employees with information provided. That can be filtered by name. The list of employees can also be sorted by first name, last name or email.
 
 ## License:
 MIT

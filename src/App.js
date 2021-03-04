@@ -10,7 +10,53 @@ import "./App.css";
 
 // this section sets the state
 class App extends Component {
-  state = { employees: [], search: "" };
+  state = { 
+    employees: [], 
+    search: "",
+    sortOrder: "ASC" 
+  };
+
+  //this section allows the sorting via first name
+  sortFirstName() {
+    const sortedFirst = this.state.employees.sort(this.compareFirst);
+    this.setState({ employees: sortedFirst });
+    const orderFirst = this.state.sortOrder ? "ASC" : "DESC";
+    this.setState({ sortOrder: orderFirst })
+  };
+
+  compareFirst(a, b) {
+    if (a.firstName > b.firstName) return 1;
+    if (b.firstName > a.firstName) return -1;
+    return 0;
+  };
+
+  //this section allows sorting via last name
+  sortLastName() {
+    const sortedLast = this.state.employees.sort(this.compareLast);
+    this.setState({ employees: sortedLast });
+    const orderLast = this.state.sortOrder ? "ASC" : "DESC";
+    this.setState({ sortOrder: orderLast })
+  };
+
+  compareLast(a, b) {
+    if (a.lastName > b.lastName) return 1;
+    if (b.lastName > a.lastName) return -1;
+    return 0;
+  };
+
+  //this section allows for sorting via email
+  sortEmail() {
+    const sortedEmail = this.state.employees.sort(this.compareEmail);
+    this.setState({ employees: sortedEmail });
+    const orderEmail = this.state.sortOrder ? "ASC" : "DESC";
+    this.setState({ sortOrder: orderEmail })
+  };
+
+  compareEmail(a, b) {
+    if (a.email > b.email) return 1;
+    if (b.email > a.email) return -1;
+    return 0;
+  };
 
   //get the data for the employees via the API
   componentDidMount() {
@@ -85,9 +131,9 @@ class App extends Component {
                 <thead>
                   <tr>
                     <th>Photo</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
+                    <th onClick={() => { this.sortFirstName() }}>First Name</th>
+                    <th onClick={() => { this.sortLastName() }}>Last Name</th>
+                    <th onClick={() => { this.sortEmail() }}>Email</th>
                     <th>Phone</th>
                     <th>City</th>
                   </tr>
